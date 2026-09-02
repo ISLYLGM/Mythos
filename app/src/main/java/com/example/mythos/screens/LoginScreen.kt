@@ -14,8 +14,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -36,9 +40,9 @@ import com.example.mythos.ui.theme.MythosTheme
 
 @Composable
 fun LoginScreen(
-    onBackClick: () -> Unit = {}
+    onBackClick: () -> Unit = {},
+    onSignUpClick: () -> Unit = {}
 ) {
-
     var email by remember { mutableStateOf("") }
     var senha by remember { mutableStateOf("") }
 
@@ -53,17 +57,19 @@ fun LoginScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
- Text(
-            text = "<",
-            color = Color.White,
-            fontSize = 42.sp,
+        IconButton(
+            onClick = { onBackClick() },
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 35.dp)
-                .clickable {
-                    onBackClick()
-                }
-        )
+                .align(Alignment.Start)
+                .padding(top = 25.dp)
+        ) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                contentDescription = "Voltar",
+                tint = Color.White,
+                modifier = Modifier.size(32.dp)
+            )
+        }
 
         Spacer(modifier = Modifier.height(15.dp))
 
@@ -205,7 +211,10 @@ fun LoginScreen(
         Text(
             text = "Don't have an account? Sign Up",
             color = Color.White,
-            fontSize = 16.sp
+            fontSize = 16.sp,
+            modifier = Modifier.clickable {
+                onSignUpClick()
+            }
         )
     }
 }

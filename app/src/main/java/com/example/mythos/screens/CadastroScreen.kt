@@ -1,3 +1,280 @@
 package com.example.mythos.screens
 
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.mythos.R
+import com.example.mythos.ui.theme.MythosTheme
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.InputTransformation.Companion.keyboardOptions
+import androidx.compose.ui.text.input.KeyboardType
+
+// No BasicTextField do Email:
+
+
+@Composable
+fun CadastroScreen(
+    onBackClick: () -> Unit = {},
+    onLoginClick: () -> Unit = {}
+) {
+    var nome by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
+    var senha by remember { mutableStateOf("") }
+    var confirmarSenha by remember { mutableStateOf("") }
+
+    val backgroundColor = Color(0xFF5F7D3F)
+    val darkGreen = Color(0xFF0E5B3D)
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(backgroundColor)
+            .padding(horizontal = 31.dp)
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Top
+    ) {
+        // Botão voltar (<) -> Redireciona para o login via onBackClick
+        IconButton(
+            onClick = { onBackClick() },
+            modifier = Modifier
+                .align(Alignment.Start)
+                .padding(top = 25.dp)
+        ) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                contentDescription = "Voltar",
+                tint = Color.White,
+                modifier = Modifier.size(32.dp)
+            )
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Image(
+            painter = painterResource(id = R.drawable.mythos_logo_vector),
+            contentDescription = "Logo do Mythos",
+            modifier = Modifier.size(130.dp)
+        )
+
+        Spacer(modifier = Modifier.height(15.dp))
+
+        Text(
+            text = "Sign Up",
+            color = Color.White,
+            fontSize = 38.sp
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = "Create your account to get started!",
+            color = Color.White,
+            fontSize = 16.sp
+        )
+
+        Spacer(modifier = Modifier.height(30.dp))
+
+        // Campo Nome
+        BasicTextField(
+            value = nome,
+            onValueChange = { nome = it },
+            singleLine = true,
+            textStyle = TextStyle(color = Color.White, fontSize = 18.sp),
+            modifier = Modifier.fillMaxWidth(),
+            decorationBox = { innerTextField ->
+                Column {
+                    if (nome.isEmpty()) {
+                        Text(
+                            text = "Nome completo",
+                            color = Color.White.copy(alpha = 0.8f),
+                            fontSize = 18.sp
+                        )
+                    }
+                    innerTextField()
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Canvas(modifier = Modifier.fillMaxWidth().height(1.dp)) {
+                        drawLine(
+                            color = Color.White,
+                            start = androidx.compose.ui.geometry.Offset(0f, 0f),
+                            end = androidx.compose.ui.geometry.Offset(size.width, 0f),
+                            strokeWidth = 2f
+                        )
+                    }
+                }
+            }
+        )
+
+        Spacer(modifier = Modifier.height(25.dp))
+
+        // Campo Email
+        BasicTextField(
+            value = email,
+            onValueChange = { email = it },
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+            textStyle = TextStyle(color = Color.White, fontSize = 18.sp),
+            modifier = Modifier.fillMaxWidth(),
+            decorationBox = { innerTextField ->
+
+                Column {
+                    if (email.isEmpty()) {
+                        Text(
+                            text = "Email",
+                            color = Color.White.copy(alpha = 0.8f),
+                            fontSize = 18.sp
+                        )
+                    }
+                    innerTextField()
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Canvas(modifier = Modifier.fillMaxWidth().height(1.dp)) {
+                        drawLine(
+                            color = Color.White,
+                            start = androidx.compose.ui.geometry.Offset(0f, 0f),
+                            end = androidx.compose.ui.geometry.Offset(size.width, 0f),
+                            strokeWidth = 2f
+                        )
+                    }
+                }
+            }
+        )
+
+        Spacer(modifier = Modifier.height(25.dp))
+
+        // Campo Senha
+        BasicTextField(
+            value = senha,
+            onValueChange = { senha = it },
+            singleLine = true,
+            visualTransformation = PasswordVisualTransformation(),
+            textStyle = TextStyle(color = Color.White, fontSize = 18.sp),
+            modifier = Modifier.fillMaxWidth(),
+            decorationBox = { innerTextField ->
+                Column {
+                    if (senha.isEmpty()) {
+                        Text(
+                            text = "Senha",
+                            color = Color.White.copy(alpha = 0.8f),
+                            fontSize = 18.sp
+                        )
+                    }
+                    innerTextField()
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Canvas(modifier = Modifier.fillMaxWidth().height(1.dp)) {
+                        drawLine(
+                            color = Color.White,
+                            start = androidx.compose.ui.geometry.Offset(0f, 0f),
+                            end = androidx.compose.ui.geometry.Offset(size.width, 0f),
+                            strokeWidth = 2f
+                        )
+                    }
+                }
+            }
+        )
+
+        Spacer(modifier = Modifier.height(25.dp))
+
+        // Campo Confirmar Senha
+        BasicTextField(
+            value = confirmarSenha,
+            onValueChange = { confirmarSenha = it },
+            singleLine = true,
+            visualTransformation = PasswordVisualTransformation(),
+            textStyle = TextStyle(color = Color.White, fontSize = 18.sp),
+            modifier = Modifier.fillMaxWidth(),
+            decorationBox = { innerTextField ->
+                Column {
+                    if (confirmarSenha.isEmpty()) {
+                        Text(
+                            text = "Confirmar Senha",
+                            color = Color.White.copy(alpha = 0.8f),
+                            fontSize = 18.sp
+                        )
+                    }
+                    innerTextField()
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Canvas(modifier = Modifier.fillMaxWidth().height(1.dp)) {
+                        drawLine(
+                            color = Color.White,
+                            start = androidx.compose.ui.geometry.Offset(0f, 0f),
+                            end = androidx.compose.ui.geometry.Offset(size.width, 0f),
+                            strokeWidth = 2f
+                        )
+                    }
+                }
+            }
+        )
+
+        Spacer(modifier = Modifier.height(35.dp))
+
+        Button(
+            onClick = { },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(65.dp),
+            shape = RoundedCornerShape(18.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = darkGreen)
+        ) {
+            Text(
+                text = "Cadastrar",
+                color = Color.White,
+                fontSize = 22.sp
+            )
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        // Texto inferior -> Redireciona para o login via onLoginClick
+        Text(
+            text = "Already have an account? Sign In",
+            color = Color.White,
+            fontSize = 16.sp,
+            modifier = Modifier
+                .clickable { onLoginClick() }
+                .padding(bottom = 20.dp)
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun RegisterScreenPreview() {
+    MythosTheme {
+        CadastroScreen()
+    }
+}
 // Tela cadastro, a fazer (Bia, aqui da pra usar a tela login e so mudar algumas coisas)
