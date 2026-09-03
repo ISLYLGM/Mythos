@@ -1,58 +1,136 @@
 package com.example.mythos
 
-import com.example.mythos.screens.CadastroScreen
 import android.os.Bundle
+
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+
+import com.example.mythos.screens.CadastroScreen
+import com.example.mythos.screens.HomeScreen
 import com.example.mythos.screens.LoginScreen
 import com.example.mythos.screens.SplashScreen
 import com.example.mythos.ui.theme.MythosTheme
 
+
 class MainActivity : ComponentActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreate(
+        savedInstanceState: Bundle?
+    ) {
+
+        super.onCreate(
+            savedInstanceState
+        )
+
 
         setContent {
+
             MythosTheme {
-                val navController = rememberNavController()
+
+                val navController =
+                    rememberNavController()
+
 
                 NavHost(
-                    navController = navController,
-                    startDestination = "splash"
+
+                    navController =
+                        navController,
+
+                    startDestination =
+                        "splash"
                 ) {
+
+
+                    /*
+                     * SPLASH
+                     */
                     composable("splash") {
+
                         SplashScreen(
+
                             onLoginClick = {
-                                // Navega para o login sem remover a splash se você quiser poder voltar para ela
-                                navController.navigate("login")
+
+                                navController.navigate(
+                                    "login"
+                                )
                             }
                         )
                     }
 
+
+                    /*
+                     * LOGIN
+                     */
                     composable("login") {
+
                         LoginScreen(
+
                             onBackClick = {
-                                navController.popBackStack() // Volta para a Splash
+
+                                navController.popBackStack()
+
                             },
+
                             onSignUpClick = {
-                                navController.navigate("register") // Vai para a tela de cadastro
+
+                                navController.navigate(
+                                    "cadastro"
+                                )
+
+                            },
+
+                            onLoginSuccess = {
+
+                                navController.navigate(
+                                    "home"
+                                )
+
                             }
                         )
                     }
 
-                    composable("register") {
+
+                    /*
+                     * CADASTRO
+                     */
+                    composable("cadastro") {
+
                         CadastroScreen(
+
                             onBackClick = {
-                                navController.popBackStack() // Volta para a tela de Login
+
+                                navController.popBackStack()
+
                             },
+
                             onLoginClick = {
-                                navController.popBackStack() // Volta para a tela de Login
+
+                                navController.popBackStack()
+
+                            },
+
+                            onCadastroSuccess = {
+
+                                navController.navigate(
+                                    "home"
+                                )
+
                             }
                         )
+                    }
+
+
+                    /*
+                     * HOME
+                     */
+                    composable("home") {
+
+                        HomeScreen()
+
                     }
                 }
             }

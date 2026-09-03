@@ -1,8 +1,10 @@
 package com.example.mythos.screens
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,144 +19,228 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+
 import com.example.mythos.R
-import com.example.mythos.ui.theme.MythosTheme
+
 
 @Composable
 fun SplashScreen(
     onLoginClick: () -> Unit
 ) {
 
-    val buttonColor = Color(0xFF0E5B3D)
-    val orangeColor = Color(0xFFFFA726)
+    val darkGreen = Color(0xFF006B45)
+    val buttonGreen = Color(0xFF009F47)
+    val lightBackground = Color(0xFFF7F7F5)
+    val white = Color.White
+    val textGray = Color(0xFF8A8A8A)
 
-    Column(
+
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(
-                Brush.verticalGradient(
-                    colors = listOf(
-                        Color(0xFF7F997F),
-                        Color(0xFF4E6B2B)
-                    )
-                )
-            )
-            .padding(horizontal = 31.dp),
-
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+            .background(lightBackground)
     ) {
 
-
-        Image(
-            painter = painterResource(
-                id = R.drawable.mythos_logo_vector
-            ),
-            contentDescription = "Logo do Mythos",
-            modifier = Modifier.size(170.dp),
-            contentScale = ContentScale.Fit
-        )
-
-        Spacer(
-            modifier = Modifier.height(25.dp)
-        )
-
-
-        Text(
-            text = "WELCOME",
-            color = Color.White,
-            fontSize = 42.sp,
-            fontWeight = FontWeight.Bold
-        )
-
-        Spacer(
-            modifier = Modifier.height(14.dp)
-        )
-
-        // FRASE
-        Text(
-            text = "Do meditation. Stay focused\nLive a healthy life",
-            color = Color.White,
-            fontSize = 22.sp,
-            fontFamily = FontFamily.Serif,
-            lineHeight = 32.sp,
-            textAlign = TextAlign.Center
-        )
-
-        Spacer(
-            modifier = Modifier.height(135.dp)
-        )
-
-
-        Button(
-            onClick = {
-                onLoginClick()
-            },
+        /*
+         * FUNDO VERDE COM DIAGONAL
+         */
+        Canvas(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(70.dp),
-            shape = RoundedCornerShape(19.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = buttonColor
-            )
+                .height(440.dp)
         ) {
 
-            Text(
-                text = "Login With Email",
-                color = Color.White,
-                fontSize = 28.sp,
-                fontWeight = FontWeight.Bold
+            val largura = size.width
+            val altura = size.height
+
+            val path = Path().apply {
+
+                moveTo(0f, 0f)
+
+                lineTo(
+                    largura,
+                    0f
+                )
+
+                lineTo(
+                    largura,
+                    altura * 0.78f
+                )
+
+                lineTo(
+                    0f,
+                    altura
+                )
+
+                close()
+            }
+
+            drawPath(
+                path = path,
+                color = darkGreen
             )
         }
 
-        Spacer(
-            modifier = Modifier.height(28.dp)
-        )
 
-        // SIGN UP
-        Text(
-            text = AnnotatedString.Builder().apply {
+        /*
+         * CONTEÚDO
+         */
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 24.dp),
 
-                append("Don't have an account? ")
+            horizontalAlignment =
+                Alignment.CenterHorizontally,
 
-                pushStyle(
-                    SpanStyle(
-                        color = orangeColor,
-                        fontWeight = FontWeight.Bold
-                    )
+            verticalArrangement =
+                Arrangement.Center
+        ) {
+
+            /*
+             * LOGO
+             */
+            Image(
+                painter = painterResource(
+                    id = R.drawable.mythos_logo_vector
+                ),
+
+                contentDescription = "Logo do Mythos",
+
+                modifier = Modifier.size(170.dp)
+            )
+
+
+            Spacer(
+                modifier = Modifier.height(15.dp)
+            )
+
+
+            /*
+             * NOME DO APP
+             */
+            Text(
+                text = "MYTHOS",
+
+                color = white,
+
+                fontSize = 34.sp,
+
+                fontWeight = FontWeight.Bold
+            )
+
+
+            Spacer(
+                modifier = Modifier.height(8.dp)
+            )
+
+
+            /*
+             * FRASE
+             */
+            Text(
+                text = "Sabores, histórias e mitologias.",
+
+                color = white.copy(alpha = 0.9f),
+
+                fontSize = 16.sp,
+
+                textAlign = TextAlign.Center
+            )
+
+
+            Spacer(
+                modifier = Modifier.height(170.dp)
+            )
+
+
+            /*
+             * TEXTO DE BOAS-VINDAS
+             */
+            Text(
+                text = "Bem-vindo!",
+
+                color = darkGreen,
+
+                fontSize = 27.sp,
+
+                fontWeight = FontWeight.Bold
+            )
+
+
+            Spacer(
+                modifier = Modifier.height(8.dp)
+            )
+
+
+            Text(
+                text = "Entre ou crie sua conta para continuar.",
+
+                color = textGray,
+
+                fontSize = 14.sp,
+
+                textAlign = TextAlign.Center
+            )
+
+
+            Spacer(
+                modifier = Modifier.height(25.dp)
+            )
+
+
+            /*
+             * BOTÃO ENTRAR
+             */
+            Button(
+                onClick = {
+                    onLoginClick()
+                },
+
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(55.dp),
+
+                shape = RoundedCornerShape(28.dp),
+
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = buttonGreen
                 )
+            ) {
 
-                append("Sign Up")
+                Text(
+                    text = "Entrar",
 
-                pop()
+                    color = white,
 
-            }.toAnnotatedString(),
+                    fontSize = 17.sp,
 
-            color = Color.White,
-            fontSize = 16.sp,
-            modifier = Modifier.padding(bottom = 10.dp)
-        )
-    }
-}
+                    fontWeight = FontWeight.Bold
+                )
+            }
 
-@Preview(showBackground = true)
-@Composable
-fun SplashScreenPreview() {
-    MythosTheme {
-        SplashScreen(
-            onLoginClick = {}
-        )
+
+            Spacer(
+                modifier = Modifier.height(12.dp)
+            )
+
+
+            Text(
+                text = "Descubra o universo Mythos",
+
+                color = textGray,
+
+                fontSize = 13.sp,
+
+                textAlign = TextAlign.Center
+            )
+        }
     }
 }
