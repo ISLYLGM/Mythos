@@ -2,13 +2,12 @@ package com.example.mythos.screens
 
 import android.content.Intent
 import android.net.Uri
+import android.widget.Toast
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,9 +18,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -30,8 +27,13 @@ import androidx.compose.material.icons.filled.Lock
 
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 
 import androidx.compose.runtime.Composable
@@ -49,12 +51,9 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -83,29 +82,20 @@ fun LoginScreen(
     val lightBackground = Color(0xFFF7F7F5)
     val white = Color.White
     val textGray = Color(0xFF8A8A8A)
-    val lineColor = Color(0xFFE5E5E5)
 
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(lightBackground)
-    ) {
+    Scaffold(
+        containerColor = lightBackground
+    ) { paddingValues ->
 
-        /*
-         * CONTEÚDO PRINCIPAL
-         */
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .clip(
-                    RoundedCornerShape(22.dp)
-                )
+                .padding(paddingValues)
+                .background(lightBackground)
         ) {
 
-            /*
-             * FUNDO VERDE
-             */
+
             Canvas(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -119,10 +109,7 @@ fun LoginScreen(
 
                     moveTo(0f, 0f)
 
-                    lineTo(
-                        largura,
-                        0f
-                    )
+                    lineTo(largura, 0f)
 
                     lineTo(
                         largura,
@@ -153,9 +140,6 @@ fun LoginScreen(
                     Alignment.CenterHorizontally
             ) {
 
-                /*
-                 * BOTÃO VOLTAR
-                 */
                 IconButton(
                     onClick = {
                         onBackClick()
@@ -163,10 +147,7 @@ fun LoginScreen(
 
                     modifier = Modifier
                         .align(Alignment.Start)
-                        .padding(
-                            start = 0.dp,
-                            top = 8.dp
-                        )
+                        .padding(top = 8.dp)
                 ) {
 
                     Icon(
@@ -188,9 +169,6 @@ fun LoginScreen(
                 )
 
 
-                /*
-                 * LOGO
-                 */
                 Image(
                     painter = painterResource(
                         id = R.drawable.mythos_logo_vector
@@ -238,251 +216,248 @@ fun LoginScreen(
                 )
 
 
-                /*
-                 * CARD DE LOGIN
-                 */
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(
-                            RoundedCornerShape(18.dp)
-                        )
-                        .background(white)
-                        .padding(
-                            horizontal = 20.dp,
-                            vertical = 20.dp
+
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+
+                    shape =
+                        RoundedCornerShape(18.dp),
+
+                    colors =
+                        CardDefaults.cardColors(
+                            containerColor = white
                         )
                 ) {
 
-                    /*
-                     * E-MAIL
-                     */
-                    LoginTextField(
-                        value = email,
-
-                        onValueChange = {
-                            email = it
-                        },
-
-                        placeholder = "E-mail",
-
-                        icon = Icons.Default.Email,
-
-                        lineColor = lineColor,
-
-                        textGray = textGray
-                    )
-
-
-                    Spacer(
-                        modifier = Modifier.height(18.dp)
-                    )
-
-
-                    /*
-                     * SENHA
-                     */
-                    LoginTextField(
-                        value = senha,
-
-                        onValueChange = {
-                            senha = it
-                        },
-
-                        placeholder = "Senha",
-
-                        icon = Icons.Default.Lock,
-
-                        lineColor = lineColor,
-
-                        textGray = textGray,
-
-                        password = true
-                    )
-
-
-                    Spacer(
-                        modifier = Modifier.height(7.dp)
-                    )
-
-
-                    /*
-                     * ESQUECEU A SENHA
-                     */
-                    Text(
-                        text = "Esqueceu a senha?",
-
-                        color = buttonGreen,
-
-                        fontSize = 13.sp,
-
-                        modifier = Modifier
-                            .align(Alignment.End)
-                            .clickable {
-                                // Recuperação de senha
-                            }
-                    )
-
-
-                    Spacer(
-                        modifier = Modifier.height(18.dp)
-                    )
-
-
-                    /*
-                     * BOTÃO ENTRAR
-                     */
-                    Button(
-                        onClick = {
-                            onLoginSuccess()
-                        },
-
+                    Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(52.dp),
-
-                        shape = RoundedCornerShape(28.dp),
-
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = buttonGreen
-                        )
-                    ) {
-
-                        Text(
-                            text = "Entrar",
-
-                            color = white,
-
-                            fontSize = 17.sp
-                        )
-                    }
-
-
-                    Spacer(
-                        modifier = Modifier.height(12.dp)
-                    )
-
-
-                    /*
-                     * OU
-                     */
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-
-                        verticalAlignment =
-                            Alignment.CenterVertically
-                    ) {
-
-                        Canvas(
-                            modifier = Modifier
-                                .weight(1f)
-                                .height(1.dp)
-                        ) {
-
-                            drawLine(
-                                color = lineColor,
-
-                                start = Offset(
-                                    0f,
-                                    0f
-                                ),
-
-                                end = Offset(
-                                    size.width,
-                                    0f
-                                ),
-
-                                strokeWidth = 1f
+                            .padding(
+                                horizontal = 20.dp,
+                                vertical = 20.dp
                             )
-                        }
+                    ) {
+
+                        LoginTextField(
+                            value = email,
+
+                            onValueChange = {
+                                email = it
+                            },
+
+                            placeholder = "E-mail",
+
+                            icon = Icons.Default.Email
+                        )
+
+
+                        Spacer(
+                            modifier =
+                                Modifier.height(18.dp)
+                        )
+
+
+                        LoginTextField(
+                            value = senha,
+
+                            onValueChange = {
+                                senha = it
+                            },
+
+                            placeholder = "Senha",
+
+                            icon = Icons.Default.Lock,
+
+                            password = true
+                        )
+
+
+                        Spacer(
+                            modifier =
+                                Modifier.height(7.dp)
+                        )
 
 
                         Text(
-                            text = "ou",
-
-                            color = textGray,
-
-                            fontSize = 13.sp,
-
-                            modifier = Modifier.padding(
-                                horizontal = 10.dp
-                            )
-                        )
-
-
-                        Canvas(
-                            modifier = Modifier
-                                .weight(1f)
-                                .height(1.dp)
-                        ) {
-
-                            drawLine(
-                                color = lineColor,
-
-                                start = Offset(
-                                    0f,
-                                    0f
-                                ),
-
-                                end = Offset(
-                                    size.width,
-                                    0f
-                                ),
-
-                                strokeWidth = 1f
-                            )
-                        }
-                    }
-
-
-                    Spacer(
-                        modifier = Modifier.height(12.dp)
-                    )
-
-
-                    /*
-                     * OUTRA CONTA
-                     */
-                    Button(
-                        onClick = {
-                            // Login alternativo
-                        },
-
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(48.dp),
-
-                        shape = RoundedCornerShape(25.dp),
-
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = white
-                        ),
-
-                        border = BorderStroke(
-                            width = 1.dp,
-                            color = buttonGreen
-                        )
-                    ) {
-
-                        Text(
-                            text = "Entrar com outra conta",
+                            text =
+                                "Esqueceu a senha?",
 
                             color = buttonGreen,
 
-                            fontSize = 14.sp
+                            fontSize = 13.sp,
+
+                            modifier =
+                                Modifier.align(
+                                    Alignment.End
+                                )
                         )
+
+
+                        Spacer(
+                            modifier =
+                                Modifier.height(18.dp)
+                        )
+
+
+                        Button(
+                            onClick = {
+
+                                Toast.makeText(
+                                    context,
+                                    "Login realizado com sucesso!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+
+                                onLoginSuccess()
+                            },
+
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(52.dp),
+
+                            shape =
+                                RoundedCornerShape(28.dp),
+
+                            colors =
+                                ButtonDefaults.buttonColors(
+                                    containerColor =
+                                        buttonGreen
+                                )
+                        ) {
+
+                            Text(
+                                text = "Entrar",
+
+                                color = white,
+
+                                fontSize = 17.sp
+                            )
+                        }
+
+
+                        Spacer(
+                            modifier =
+                                Modifier.height(12.dp)
+                        )
+
+
+                        /*
+                         * ROW
+                         */
+                        Row(
+                            modifier =
+                                Modifier.fillMaxWidth(),
+
+                            verticalAlignment =
+                                Alignment.CenterVertically
+                        ) {
+
+                            Canvas(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .height(1.dp)
+                            ) {
+
+                                drawLine(
+                                    color =
+                                        Color(0xFFE5E5E5),
+
+                                    start =
+                                        Offset(0f, 0f),
+
+                                    end =
+                                        Offset(
+                                            size.width,
+                                            0f
+                                        ),
+
+                                    strokeWidth = 1f
+                                )
+                            }
+
+
+                            Text(
+                                text = "ou",
+
+                                color = textGray,
+
+                                fontSize = 13.sp,
+
+                                modifier =
+                                    Modifier.padding(
+                                        horizontal = 10.dp
+                                    )
+                            )
+
+
+                            Canvas(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .height(1.dp)
+                            ) {
+
+                                drawLine(
+                                    color =
+                                        Color(0xFFE5E5E5),
+
+                                    start =
+                                        Offset(0f, 0f),
+
+                                    end =
+                                        Offset(
+                                            size.width,
+                                            0f
+                                        ),
+
+                                    strokeWidth = 1f
+                                )
+                            }
+                        }
+
+
+                        Spacer(
+                            modifier =
+                                Modifier.height(12.dp)
+                        )
+
+
+                        OutlinedButton(
+                            onClick = {
+
+                                Toast.makeText(
+                                    context,
+                                    "Outra conta",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            },
+
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(48.dp),
+
+                            shape =
+                                RoundedCornerShape(25.dp)
+                        ) {
+
+                            Text(
+                                text =
+                                    "Entrar com outra conta",
+
+                                color = buttonGreen,
+
+                                fontSize = 14.sp
+                            )
+                        }
                     }
                 }
 
 
                 Spacer(
-                    modifier = Modifier.height(20.dp)
+                    modifier =
+                        Modifier.height(20.dp)
                 )
 
 
-                /*
-                 * CADASTRO
-                 */
                 Row(
                     horizontalArrangement =
                         Arrangement.Center,
@@ -508,29 +483,25 @@ fun LoginScreen(
 
                         fontSize = 13.sp,
 
-                        modifier = Modifier.clickable {
-
-                            onSignUpClick()
-
-                        }
+                        modifier =
+                            Modifier.clickable {
+                                onSignUpClick()
+                            }
                     )
                 }
 
 
                 Spacer(
-                    modifier = Modifier.height(20.dp)
+                    modifier =
+                        Modifier.height(20.dp)
                 )
 
 
-                /*
-                 * INSTAGRAM
-                 */
-                Column(
-                    modifier = Modifier.clickable {
+                InstagramButton(
+                    onClick = {
 
                         val intent = Intent(
                             Intent.ACTION_VIEW,
-
                             Uri.parse(
                                 "https://www.instagram.com/bia__e__bel/"
                             )
@@ -539,88 +510,7 @@ fun LoginScreen(
                         context.startActivity(intent)
                     },
 
-                    horizontalAlignment =
-                        Alignment.CenterHorizontally
-                ) {
-
-                    /*
-                     * ÍCONE INSTAGRAM
-                     */
-                    Canvas(
-                        modifier = Modifier.size(42.dp)
-                    ) {
-
-                        val tamanho =
-                            size.minDimension
-
-
-                        drawRoundRect(
-                            color = buttonGreen,
-
-                            size = Size(
-                                tamanho,
-                                tamanho
-                            ),
-
-                            cornerRadius = CornerRadius(
-                                tamanho * 0.25f,
-                                tamanho * 0.25f
-                            ),
-
-                            style = Stroke(
-                                width = tamanho * 0.10f
-                            )
-                        )
-
-
-                        drawCircle(
-                            color = buttonGreen,
-
-                            radius =
-                                tamanho * 0.22f,
-
-                            center = Offset(
-                                tamanho / 2,
-                                tamanho / 2
-                            ),
-
-                            style = Stroke(
-                                width = tamanho * 0.10f
-                            )
-                        )
-
-
-                        drawCircle(
-                            color = buttonGreen,
-
-                            radius =
-                                tamanho * 0.07f,
-
-                            center = Offset(
-                                tamanho * 0.76f,
-                                tamanho * 0.24f
-                            )
-                        )
-                    }
-
-
-                    Spacer(
-                        modifier = Modifier.height(6.dp)
-                    )
-
-
-                    Text(
-                        text = "@bia__e__bel",
-
-                        color = buttonGreen,
-
-                        fontSize = 15.sp
-                    )
-                }
-
-
-                Spacer(
-                    modifier = Modifier.height(15.dp)
+                    buttonGreen = buttonGreen
                 )
             }
         }
@@ -628,121 +518,147 @@ fun LoginScreen(
 }
 
 
+
 @Composable
 fun LoginTextField(
     value: String,
-
     onValueChange: (String) -> Unit,
-
     placeholder: String,
-
-    icon: ImageVector,
-
-    lineColor: Color,
-
-    textGray: Color,
-
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
     password: Boolean = false
 ) {
 
-    BasicTextField(
-
+    OutlinedTextField(
         value = value,
 
-        onValueChange = onValueChange,
+        onValueChange = {
+            onValueChange(it)
+        },
+
+        modifier = Modifier.fillMaxWidth(),
 
         singleLine = true,
+
+        placeholder = {
+            Text(
+                text = placeholder
+            )
+        },
+
+        leadingIcon = {
+
+            Icon(
+                imageVector = icon,
+
+                contentDescription = null
+            )
+        },
 
         visualTransformation =
             if (password) {
                 PasswordVisualTransformation()
             } else {
-                VisualTransformation.None
+                androidx.compose.ui.text.input.VisualTransformation.None
             },
 
-        textStyle = TextStyle(
-            color = Color(0xFF333333),
+        shape =
+            RoundedCornerShape(12.dp)
+    )
+}
+
+
+@Composable
+fun InstagramButton(
+    onClick: () -> Unit,
+    buttonGreen: Color
+) {
+
+    Column(
+        modifier = Modifier.clickable {
+            onClick()
+        },
+
+        horizontalAlignment =
+            Alignment.CenterHorizontally
+    ) {
+
+        Canvas(
+            modifier = Modifier.size(42.dp)
+        ) {
+
+            val tamanho =
+                size.minDimension
+
+            drawRoundRect(
+                color = buttonGreen,
+
+                size =
+                    Size(
+                        tamanho,
+                        tamanho
+                    ),
+
+                cornerRadius =
+                    CornerRadius(
+                        tamanho * 0.25f,
+                        tamanho * 0.25f
+                    ),
+
+                style =
+                    Stroke(
+                        width =
+                            tamanho * 0.10f
+                    )
+            )
+
+
+            drawCircle(
+                color = buttonGreen,
+
+                radius =
+                    tamanho * 0.22f,
+
+                center =
+                    Offset(
+                        tamanho / 2,
+                        tamanho / 2
+                    ),
+
+                style =
+                    Stroke(
+                        width =
+                            tamanho * 0.10f
+                    )
+            )
+
+
+            drawCircle(
+                color = buttonGreen,
+
+                radius =
+                    tamanho * 0.07f,
+
+                center =
+                    Offset(
+                        tamanho * 0.76f,
+                        tamanho * 0.24f
+                    )
+            )
+        }
+
+
+        Spacer(
+            modifier =
+                Modifier.height(6.dp)
+        )
+
+
+        Text(
+            text = "@bia__e__bel",
+
+            color = buttonGreen,
 
             fontSize = 15.sp
-        ),
-
-        modifier = Modifier.fillMaxWidth(),
-
-        decorationBox = { innerTextField ->
-
-            Column {
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-
-                    verticalAlignment =
-                        Alignment.CenterVertically
-                ) {
-
-                    Icon(
-                        imageVector = icon,
-
-                        contentDescription = null,
-
-                        tint = textGray,
-
-                        modifier = Modifier.size(20.dp)
-                    )
-
-
-                    Spacer(
-                        modifier = Modifier.size(10.dp)
-                    )
-
-
-                    Box(
-                        modifier = Modifier.weight(1f)
-                    ) {
-
-                        if (value.isEmpty()) {
-
-                            Text(
-                                text = placeholder,
-
-                                color = textGray,
-
-                                fontSize = 15.sp
-                            )
-                        }
-
-                        innerTextField()
-                    }
-                }
-
-
-                Spacer(
-                    modifier = Modifier.height(10.dp)
-                )
-
-
-                Canvas(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(1.dp)
-                ) {
-
-                    drawLine(
-                        color = lineColor,
-
-                        start = Offset(
-                            0f,
-                            0f
-                        ),
-
-                        end = Offset(
-                            size.width,
-                            0f
-                        ),
-
-                        strokeWidth = 1f
-                    )
-                }
-            }
-        }
-    )
+        )
+    }
 }

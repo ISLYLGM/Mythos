@@ -45,9 +45,7 @@ class MainActivity : ComponentActivity() {
                 ) {
 
 
-                    /*
-                     * SPLASH
-                     */
+
                     composable("splash") {
 
                         SplashScreen(
@@ -62,9 +60,7 @@ class MainActivity : ComponentActivity() {
                     }
 
 
-                    /*
-                     * LOGIN
-                     */
+
                     composable("login") {
 
                         LoginScreen(
@@ -94,9 +90,7 @@ class MainActivity : ComponentActivity() {
                     }
 
 
-                    /*
-                     * CADASTRO
-                     */
+
                     composable("cadastro") {
 
                         CadastroScreen(
@@ -124,9 +118,7 @@ class MainActivity : ComponentActivity() {
                     }
 
 
-                    /*
-                     * HOME
-                     */
+
                     composable("home") {
 
                         HomeScreen()
