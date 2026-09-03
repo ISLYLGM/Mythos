@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -415,15 +416,13 @@ fun CadastroScreen(
 
                     Text(
                         text = "Entrar",
-
                         color = buttonGreen,
-
                         fontSize = 13.sp,
-
-                        modifier =
-                            Modifier.padding(
-                                start = 2.dp
-                            )
+                        modifier = Modifier
+                            .padding(start = 2.dp)
+                            .clickable {
+                                onLoginClick()
+                            }
                     )
                 }
             }
