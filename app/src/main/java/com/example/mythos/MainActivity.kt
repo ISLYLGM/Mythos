@@ -1,20 +1,20 @@
 package com.example.mythos
 
 import android.os.Bundle
-
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-
 import com.example.mythos.screens.CadastroScreen
 import com.example.mythos.screens.HomeScreen
 import com.example.mythos.screens.LoginScreen
 import com.example.mythos.screens.SplashScreen
 import com.example.mythos.ui.theme.MythosTheme
-
 
 class MainActivity : ComponentActivity() {
 

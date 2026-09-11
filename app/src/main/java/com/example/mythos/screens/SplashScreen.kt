@@ -1,7 +1,6 @@
 package com.example.mythos.screens
 
 import android.widget.Toast
-
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -10,24 +9,26 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,17 +37,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
 import com.example.mythos.R
-
+import com.example.mythos.ui.theme.MythosTheme
 
 @Composable
 fun SplashScreen(
     onLoginClick: () -> Unit
 ) {
-
     val darkGreen = Color(0xFF006B45)
     val buttonGreen = Color(0xFF009F47)
     val lightBackground = Color(0xFFF7F7F5)
@@ -59,44 +59,29 @@ fun SplashScreen(
         mutableStateOf(false)
     }
 
-
     Scaffold(
-        containerColor = lightBackground
+        containerColor = lightBackground,
+        contentWindowInsets = WindowInsets(0, 0, 0, 0)
     ) { paddingValues ->
-
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
                 .background(lightBackground)
         ) {
-
-
             Canvas(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(440.dp)
             ) {
-
                 val largura = size.width
                 val altura = size.height
 
                 val path = Path().apply {
-
                     moveTo(0f, 0f)
-
                     lineTo(largura, 0f)
-
-                    lineTo(
-                        largura,
-                        altura * 0.78f
-                    )
-
-                    lineTo(
-                        0f,
-                        altura
-                    )
-
+                    lineTo(largura, altura * 0.78f)
+                    lineTo(0f, altura)
                     close()
                 }
 
@@ -106,153 +91,85 @@ fun SplashScreen(
                 )
             }
 
-
-
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(horizontal = 24.dp),
-
-                horizontalAlignment =
-                    Alignment.CenterHorizontally,
-
-                verticalArrangement =
-                    Arrangement.Center
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
-
                 Image(
                     painter = painterResource(
                         id = R.drawable.mythos_logo_vector
                     ),
-
-                    contentDescription =
-                        "Logo do Mythos",
-
+                    contentDescription = "Logo do Mythos",
                     modifier = Modifier.size(170.dp)
                 )
 
-
-                Spacer(
-                    modifier = Modifier.height(15.dp)
-                )
-
+                Spacer(modifier = Modifier.height(15.dp))
 
                 Text(
                     text = "MYTHOS",
-
                     color = white,
-
                     fontSize = 34.sp,
-
                     fontWeight = FontWeight.Bold
                 )
 
-
-                Spacer(
-                    modifier = Modifier.height(8.dp)
-                )
-
+                Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text =
-                        "Sabores, histórias e mitologias.",
-
-                    color = white.copy(
-                        alpha = 0.9f
-                    ),
-
+                    text = "Sabores, histórias e mitologias.",
+                    color = white.copy(alpha = 0.9f),
                     fontSize = 16.sp,
-
-                    textAlign =
-                        TextAlign.Center
+                    textAlign = TextAlign.Center
                 )
 
-
-                Spacer(
-                    modifier = Modifier.height(170.dp)
-                )
-
+                Spacer(modifier = Modifier.height(170.dp))
 
                 Text(
                     text = "Bem-vindo!",
-
                     color = darkGreen,
-
                     fontSize = 27.sp,
-
                     fontWeight = FontWeight.Bold
                 )
 
-
-                Spacer(
-                    modifier = Modifier.height(8.dp)
-                )
-
+                Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text =
-                        "Entre ou crie sua conta para continuar.",
-
+                    text = "Entre ou crie sua conta para continuar.",
                     color = textGray,
-
                     fontSize = 14.sp,
-
-                    textAlign =
-                        TextAlign.Center
+                    textAlign = TextAlign.Center
                 )
 
-
-                Spacer(
-                    modifier = Modifier.height(25.dp)
-                )
-
+                Spacer(modifier = Modifier.height(25.dp))
 
                 SplashButton(
                     onClick = {
-
                         clicouEntrar = true
-
                         Toast.makeText(
                             context,
                             "Abrindo login...",
                             Toast.LENGTH_SHORT
                         ).show()
-
                         onLoginClick()
                     },
-
                     buttonGreen = buttonGreen,
-
                     white = white
                 )
 
-
-                Spacer(
-                    modifier = Modifier.height(12.dp)
-                )
-
-
+                Spacer(modifier = Modifier.height(12.dp))
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-
-                    horizontalArrangement =
-                        Arrangement.Center,
-
-                    verticalAlignment =
-                        Alignment.CenterVertically
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-
                     Text(
-                        text =
-                            "Descubra o universo Mythos",
-
+                        text = "Descubra o universo Mythos",
                         color = textGray,
-
                         fontSize = 13.sp,
-
-                        textAlign =
-                            TextAlign.Center
+                        textAlign = TextAlign.Center
                     )
                 }
             }
@@ -260,41 +177,36 @@ fun SplashScreen(
     }
 }
 
-
-
 @Composable
 fun SplashButton(
     onClick: () -> Unit,
     buttonGreen: Color,
     white: Color
 ) {
-
     Button(
-        onClick = {
-            onClick()
-        },
-
+        onClick = { onClick() },
         modifier = Modifier
             .fillMaxWidth()
             .height(55.dp),
-
-        shape =
-            RoundedCornerShape(28.dp),
-
-        colors =
-            ButtonDefaults.buttonColors(
-                containerColor = buttonGreen
-            )
+        shape = RoundedCornerShape(28.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = buttonGreen
+        )
     ) {
-
         Text(
             text = "Entrar",
-
             color = white,
-
             fontSize = 17.sp,
-
             fontWeight = FontWeight.Bold
         )
+    }
+}
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun SplashScreenPreview() {
+    MythosTheme {
+        Surface(modifier = Modifier.fillMaxSize()) {
+            SplashScreen(onLoginClick = {}) // <--- Adicionado 'onLoginClick = {}' aqui
+        }
     }
 }

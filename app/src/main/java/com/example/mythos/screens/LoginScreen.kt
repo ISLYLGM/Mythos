@@ -59,7 +59,9 @@ import androidx.compose.ui.unit.sp
 
 import com.example.mythos.R
 
-
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.material3.Surface
+import com.example.mythos.ui.theme.MythosTheme
 @Composable
 fun LoginScreen(
     onBackClick: () -> Unit = {},
@@ -660,5 +662,20 @@ fun InstagramButton(
 
             fontSize = 15.sp
         )
+    }
+}
+// ---------------------------------------------------------
+// PREVIEW DA TELA DE LOGIN
+// ---------------------------------------------------------
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun LoginScreenPreview() {
+    com.example.mythos.ui.theme.MythosTheme {
+        androidx.compose.material3.Surface(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            LoginScreen()
+        }
     }
 }
