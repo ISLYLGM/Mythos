@@ -9,11 +9,13 @@ lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.9.3"
 composeBom = "2024.10.01"
 navigationCompose = "2.8.4"
-# Corrigido: Versão existente e compatível no Google Maven
 material3Adaptive = "1.0.0-alpha05"
+rive = "11.6.1"
 
 [libraries]
+rive-android = { group = "app.rive", name = "rive-android", version.ref = "rive" }
 # AndroidX & Core
+
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
